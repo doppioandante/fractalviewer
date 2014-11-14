@@ -90,6 +90,7 @@ public class FractalPanel extends JPanel
 		{
 			// TODO: check on event.getPoint() boundaries
 			// TODO: better control, mouseReleased, mouse cursors change
+			// TODO: set better mouse cursor
 			if(SwingUtilities.isLeftMouseButton(event))
 			{
 				lastMousePos = event.getPoint();

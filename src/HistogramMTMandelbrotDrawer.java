@@ -123,6 +123,7 @@ public class HistogramMTMandelbrotDrawer extends AbstractRegionMTFractalDrawer
 			}
 			else
 			{
+				// FIXME: this thing sucks, I should use accum in some way
 				rgb = (int)Math.floor((double)0xFFD700*(1 - (double)iterations / (double)total));
 			}
 			return rgb;

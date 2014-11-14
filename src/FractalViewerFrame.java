@@ -16,37 +16,11 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 @SuppressWarnings("serial")
-public class Fractal extends JFrame implements ActionListener//, ChangeListener
+public class FractalViewerFrame extends JFrame implements ActionListener//, ChangeListener
 {
-	public static void main(String[] args) throws Exception
-	{
-		try
-		{
-			UIManager.setLookAndFeel(
-					UIManager.getSystemLookAndFeelClassName());
-		}
-		catch(UnsupportedLookAndFeelException|ClassNotFoundException e)
-		{
-			// just ignore this exception, the default look and feel will be ok
-		}
-
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				Fractal frame = new Fractal();
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-				frame.pack();
-				frame.setVisible(true);
-			}
-		});
-	}
-
-	public Fractal()
+	public FractalViewerFrame()
 	{
 		super();
 
@@ -142,6 +116,7 @@ public class Fractal extends JFrame implements ActionListener//, ChangeListener
 			String filename = "mandelbrot.jpg";
 			try
 			{
+				// TODO: gray out the fractal panel... maybe in other ops as well?
 				FractalSaver.save(filename, this.drawer, this.panel.getSize());
 				JOptionPane.showMessageDialog(this, "Fractal written to " + filename);
 			}
