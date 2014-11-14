@@ -5,7 +5,7 @@ project(fractal_viewer)
 set(Fractal_viewer_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 file(GLOB fractal_viewer_sources "${Fractal_viewer_SOURCE_DIR}/*.java")
-find_package(Java REQUIRED)
+find_package(Java COMPONENTS Development REQUIRED)
 include(UseJava)
 
 set(CMAKE_JAVA_COMPILE_FLAGS "-source" "7") # "-target" "7")

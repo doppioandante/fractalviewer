@@ -1,17 +1,12 @@
-import java.awt.geom.Point2D;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Color;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CyclicBarrier;
-
+import java.awt.Rectangle;
+import java.awt.geom.Point2D;
 import java.util.LinkedList;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 
 public abstract class AbstractRegionMTFractalDrawer extends AbstractMTFractalDrawer

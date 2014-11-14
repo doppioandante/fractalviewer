@@ -1,5 +1,4 @@
 import java.awt.geom.Point2D;
-import java.awt.Dimension;
 
 public abstract class AbstractMTFractalDrawer extends AbstractFractalDrawer
 {

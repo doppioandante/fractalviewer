@@ -1,9 +1,9 @@
-import java.awt.image.BufferedImage;
-import java.awt.geom.Point2D;
-import java.awt.Rectangle;
 import java.awt.Dimension;
-import javax.imageio.ImageIO;
+import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
+
+import javax.imageio.ImageIO;
 
 public class FractalToImage
 {
