@@ -33,7 +33,7 @@ public class HistogramMTMandelbrotDrawer extends AbstractRegionMTFractalDrawer
 			Dimension dim,
 			Rectangle area)
 	{
-		return new Task(g, dim, area);
+		return new Task(dim, area);
 	}
 
 	@Override
@@ -49,16 +49,13 @@ public class HistogramMTMandelbrotDrawer extends AbstractRegionMTFractalDrawer
 	
 	private class Task implements Callable<DrawerTaskResult>
 	{
-		private Graphics2D g;
 		private Dimension dim;
 		private Rectangle area;
 
 		Task(
-			Graphics2D g,
 			Dimension dim,
 			Rectangle area)
 		{
-			this.g = g;
 			this.dim = dim;
 			this.area = area;
 		}

@@ -10,6 +10,7 @@ import java.awt.geom.Point2D;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+@SuppressWarnings("serial")
 public class FractalPanel extends JPanel
 {
 	public FractalPanel(Dimension dim, AbstractFractalDrawer drawer)
@@ -34,7 +35,7 @@ public class FractalPanel extends JPanel
 		getDrawer().draw((Graphics2D) g, dimension);
 	}
 
-	public void setDrawer()
+	public void setDrawer(AbstractFractalDrawer drawer)
 	{
 		this.drawer = drawer;
 	}
@@ -55,7 +56,7 @@ public class FractalPanel extends JPanel
 			Point2D zoomPoint = getDrawer().getScaledPoint(event.getPoint(), dimension);
 
 			assert(getDrawer().getZoom() > 0.0);
-			getDrawer().setZoom(getDrawer().getZoom() * Math.exp(-amount));
+			getDrawer().setZoom(getDrawer().getZoom() * Math.exp(-factor * amount));
 
 			Point2D origin = getDrawer().getOrigin();
 			Point2D zoomPoint2 = getDrawer().getScaledPoint(event.getPoint(), dimension);
