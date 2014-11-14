@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 public class FractalSaver
 {
-	public static void save(String filename, AbstractFractalDrawer drawer, Dimension dim) throws Exception
+	public static void save(File file, AbstractFractalDrawer drawer, Dimension dim) throws Exception
 	{
 		BufferedImage img = new BufferedImage(
 				dim.width,
@@ -16,6 +16,6 @@ public class FractalSaver
 		drawer.draw(img.createGraphics(), dim);
 
 		// TODO: rename file if existing(and maybe move this code in another class)
-		ImageIO.write(img, "jpg", new File(filename));
+		ImageIO.write(img, "jpg", file);
 	}
 }

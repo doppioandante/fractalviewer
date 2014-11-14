@@ -3,10 +3,12 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Point2D;
+import java.io.File;
 import java.text.NumberFormat;
 
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,6 +18,8 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 @SuppressWarnings("serial")
 public class FractalViewerFrame extends JFrame implements ActionListener//, ChangeListener
@@ -24,6 +28,7 @@ public class FractalViewerFrame extends JFrame implements ActionListener//, Chan
 	{
 		super();
 
+		// TODO: could be a parameter of this constructor?
 		this.drawer = new HistogramMTMandelbrotDrawer(
 				new Point2D.Double(0.0, 0.0),
 				-2.0, 1.0, -1.0, 1.0,
@@ -105,24 +110,41 @@ public class FractalViewerFrame extends JFrame implements ActionListener//, Chan
 
 	public void actionPerformed(ActionEvent event)
 	{
-		if(event.getActionCommand().equals("reset"))
+		if (event.getActionCommand().equals("reset"))
 		{
 			this.drawer.setOrigin(new Point2D.Double(0.0, 0.0));
 			this.drawer.setZoom(1.0);
 			this.panel.repaint();
 		}
-		else if(event.getActionCommand().equals("save"))
+		else if (event.getActionCommand().equals("save"))
 		{
-			String filename = "mandelbrot.jpg";
-			try
+			JFileChooser fileChooser = new JFileChooser();
+			FileFilter filter = new FileNameExtensionFilter("JPEG files", "jpg", "jpeg");
+			fileChooser.addChoosableFileFilter(filter);
+			fileChooser.setAcceptAllFileFilterUsed(false);
+			int returnVal = fileChooser.showOpenDialog(this);
+			
+			if (returnVal == JFileChooser.APPROVE_OPTION)
 			{
-				// TODO: gray out the fractal panel... maybe in other ops as well?
-				FractalSaver.save(filename, this.drawer, this.panel.getSize());
-				JOptionPane.showMessageDialog(this, "Fractal written to " + filename);
-			}
-			catch(Exception e)
-			{
-				// TODO: show an error dialog, more granularity on the exception
+				File file = fileChooser.getSelectedFile();
+				String filename = file.getName();
+				if (!filter.accept(file))
+				{
+					// add the appropriate extension just in case
+					filename = filename + ".jpg";
+					// FIXME
+					file = new File(filename);
+				}
+				try
+				{
+					// TODO: gray out the fractal panel... maybe in other ops as well?
+					FractalSaver.save(file, this.drawer, this.panel.getSize());
+					JOptionPane.showMessageDialog(this, "Fractal written to " + filename);
+				}
+				catch(Exception e)
+				{
+					// TODO: show an error dialog, more granularity on the exception
+				}
 			}
 		}
 	}
