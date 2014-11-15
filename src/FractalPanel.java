@@ -1,3 +1,4 @@
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -71,7 +72,7 @@ public class FractalPanel extends JPanel
 		@Override
 		public void mouseDragged(MouseEvent event)
 		{
-			if(SwingUtilities.isLeftMouseButton(event))
+			if (SwingUtilities.isLeftMouseButton(event))
 			{
 				Point2D scaledNewPos = getDrawer().getScaledPoint(event.getPoint(), dimension);
 				Point2D scaledLastPos = getDrawer().getScaledPoint(lastMousePos, dimension);
@@ -84,6 +85,15 @@ public class FractalPanel extends JPanel
 				repaint();
 			}
 		}
+		
+		@Override
+		public void mouseReleased(MouseEvent event)
+		{
+			if(SwingUtilities.isLeftMouseButton(event))
+			{
+				setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			}
+		}
 
 		@Override
 		public void mousePressed(MouseEvent event)
@@ -91,8 +101,9 @@ public class FractalPanel extends JPanel
 			// TODO: check on event.getPoint() boundaries
 			// TODO: better control, mouseReleased, mouse cursors change
 			// TODO: set better mouse cursor
-			if(SwingUtilities.isLeftMouseButton(event))
+			if (SwingUtilities.isLeftMouseButton(event))
 			{
+				setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 				lastMousePos = event.getPoint();
 			}
 		}

@@ -74,6 +74,7 @@ public class HistogramMTMandelbrotDrawer extends AbstractRegionMTFractalDrawer
 
 					int depth = getPointEscapeTime(new Complex(x, y));
 					iterations[i * area.height + j] = depth;
+					// TODO: is this fast enough?
 					synchronized(histogram)
 					{
 						histogram[depth]++;

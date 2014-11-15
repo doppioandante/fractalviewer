@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Point2D;
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.NumberFormat;
 
 import javax.swing.Box;
@@ -83,11 +81,11 @@ public class FractalViewerFrame extends JFrame implements ActionListener//, Chan
 		JLabel yLabel = new JLabel("y:");
 		JLabel zoomLabel = new JLabel("zoom:");
 		JTextField xField = new JFormattedTextField(NumberFormat.getInstance());
-		xField.setColumns(18);
+		xField.setColumns(8);
 		JTextField yField = new JFormattedTextField(NumberFormat.getInstance());
-		yField.setColumns(18);
+		yField.setColumns(8);
 		JTextField zoomField = new JFormattedTextField(NumberFormat.getInstance());
-		zoomField.setColumns(18);
+		zoomField.setColumns(8);
 		
 		info.add(xLabel);
 		info.add(xField);
