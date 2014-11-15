@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Point2D;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.NumberFormat;
 
 import javax.swing.Box;
@@ -120,26 +122,23 @@ public class FractalViewerFrame extends JFrame implements ActionListener//, Chan
 		{
 			JFileChooser fileChooser = new JFileChooser();
 			FileFilter filter = new FileNameExtensionFilter("JPEG files", "jpg", "jpeg");
-			fileChooser.addChoosableFileFilter(filter);
 			fileChooser.setAcceptAllFileFilterUsed(false);
+			fileChooser.addChoosableFileFilter(filter);
 			int returnVal = fileChooser.showOpenDialog(this);
 			
 			if (returnVal == JFileChooser.APPROVE_OPTION)
 			{
 				File file = fileChooser.getSelectedFile();
-				String filename = file.getName();
 				if (!filter.accept(file))
 				{
-					// add the appropriate extension just in case
-					filename = filename + ".jpg";
-					// FIXME
-					file = new File(filename);
+					file = new File(file.getAbsolutePath() + ".jpg");
 				}
 				try
 				{
 					// TODO: gray out the fractal panel... maybe in other ops as well?
+					// TODO: more options for saving?
 					FractalSaver.save(file, this.drawer, this.panel.getSize());
-					JOptionPane.showMessageDialog(this, "Fractal written to " + filename);
+					JOptionPane.showMessageDialog(this, "Fractal written to " + file.getName());
 				}
 				catch(Exception e)
 				{
