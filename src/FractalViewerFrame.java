@@ -17,12 +17,15 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 @SuppressWarnings("serial")
-public class FractalViewerFrame extends JFrame implements ActionListener//, ChangeListener
+public class FractalViewerFrame extends JFrame implements ActionListener, ChangeListener
 {
 	public FractalViewerFrame()
 	{
@@ -64,7 +67,8 @@ public class FractalViewerFrame extends JFrame implements ActionListener//, Chan
 				new SpinnerNumberModel(processors, 1, processors, 1));
 		JSpinner.DefaultEditor ed = (JSpinner.DefaultEditor)threadSpinner.getEditor();
 		ed.getTextField().setColumns(5);
-		//TODO: add change listener
+
+		threadSpinner.addChangeListener(this);
 
 		toolbar.add(saveButton);
 		toolbar.add(resetButton);
@@ -145,6 +149,14 @@ public class FractalViewerFrame extends JFrame implements ActionListener//, Chan
 			}
 		}
 	}
+	
+	public void stateChanged(ChangeEvent e) 
+	{
+        SpinnerModel model = ((JSpinner)e.getSource()).getModel();
+        assert(model instanceof SpinnerNumberModel);
+        
+        this.drawer.setThreads(((SpinnerNumberModel)model).getNumber().intValue());
+    }
 
 	private AbstractMTFractalDrawer drawer;
 	private FractalPanel panel;
