@@ -87,15 +87,6 @@ public class FractalPanel extends JPanel
 		}
 		
 		@Override
-		public void mouseReleased(MouseEvent event)
-		{
-			if(SwingUtilities.isLeftMouseButton(event))
-			{
-				setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-			}
-		}
-
-		@Override
 		public void mousePressed(MouseEvent event)
 		{
 			// TODO: check on event.getPoint() boundaries
@@ -104,6 +95,15 @@ public class FractalPanel extends JPanel
 			{
 				setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
 				lastMousePos = event.getPoint();
+			}
+		}
+		
+		@Override
+		public void mouseReleased(MouseEvent event)
+		{
+			if(SwingUtilities.isLeftMouseButton(event))
+			{
+				setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 			}
 		}
 

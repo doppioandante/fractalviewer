@@ -2,6 +2,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 import java.awt.geom.Point2D;
 import java.io.File;
 import java.text.NumberFormat;
@@ -25,7 +27,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 @SuppressWarnings("serial")
-public class FractalViewerFrame extends JFrame implements ActionListener, ChangeListener
+public class FractalViewerFrame extends JFrame implements ActionListener, ChangeListener, KeyListener
 {
 	public FractalViewerFrame()
 	{
@@ -91,6 +93,10 @@ public class FractalViewerFrame extends JFrame implements ActionListener, Change
 		JTextField zoomField = new JFormattedTextField(NumberFormat.getInstance());
 		zoomField.setColumns(8);
 		
+		xField.addKeyListener(this);
+		yField.addKeyListener(this);
+		zoomField.addKeyListener(this);
+		
 		info.add(xLabel);
 		info.add(xField);
 		info.addSeparator();
@@ -105,13 +111,12 @@ public class FractalViewerFrame extends JFrame implements ActionListener, Change
 		top.add(toolbar, BorderLayout.PAGE_START);
 		top.add(info, BorderLayout.PAGE_END);
 
-		
 		setLayout(new BorderLayout());
 		add(top, BorderLayout.PAGE_START);
 
 		setTitle("Fractal Viewer");
 	}
-
+	
 	public void actionPerformed(ActionEvent event)
 	{
 		if (event.getActionCommand().equals("reset"))
@@ -150,6 +155,7 @@ public class FractalViewerFrame extends JFrame implements ActionListener, Change
 		}
 	}
 	
+	
 	public void stateChanged(ChangeEvent e) 
 	{
         SpinnerModel model = ((JSpinner)e.getSource()).getModel();
@@ -157,7 +163,22 @@ public class FractalViewerFrame extends JFrame implements ActionListener, Change
         
         this.drawer.setThreads(((SpinnerNumberModel)model).getNumber().intValue());
     }
-
+	
+	public void keyPressed(KeyEvent event) 
+	{
+		if(event.getKeyCode() == KeyEvent.VK_ENTER)
+		{
+			// TODO: get specified coordinates
+			Point2D origin = new Point2D.Double(0.0, 0.0);
+			this.drawer.setOrigin(origin);
+			
+			this.panel.repaint();
+		}
+	}	
+	public void keyReleased(KeyEvent event) {}
+	
+	public void keyTyped(KeyEvent event) {}
+	
 	private AbstractMTFractalDrawer drawer;
 	private FractalPanel panel;
 }
